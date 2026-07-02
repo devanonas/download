@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Download Linky Space</title>
+  <meta name="description" content="Download Linky Space for Android and iOS." />
+
+  <meta property="og:title" content="Download Linky Space" />
+  <meta property="og:description" content="Play Linky Space now on Android and iOS." />
+  <meta property="og:type" content="website" />
+
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      background: radial-gradient(circle at top, #243b8f, #070816 70%);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 24px;
+    }
+
+    .card {
+      max-width: 430px;
+      width: 100%;
+      padding: 32px 24px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(12px);
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: 32px;
+    }
+
+    p {
+      margin: 0 0 24px;
+      opacity: 0.85;
+      line-height: 1.5;
+    }
+
+    .loader {
+      width: 38px;
+      height: 38px;
+      border: 4px solid rgba(255, 255, 255, 0.25);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 24px;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .buttons {
+      display: flex;
+      gap: 12px;
+      flex-direction: column;
+    }
+
+    a {
+      display: block;
+      padding: 14px 18px;
+      border-radius: 14px;
+      text-decoration: none;
+      font-weight: bold;
+      color: #071020;
+      background: white;
+    }
+
+    .secondary {
+      background: rgba(255, 255, 255, 0.16);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+    }
+
+    small {
+      display: block;
+      margin-top: 18px;
+      opacity: 0.6;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="card">
+    <h1>Linky Space</h1>
+    <p id="message">Cihazınıza uygun mağazaya yönlendiriliyorsunuz...</p>
+
+    <div class="loader"></div>
+
+    <div class="buttons">
+      <a id="androidBtn" href="#">Android için indir</a>
+      <a id="iosBtn" class="secondary" href="#">iOS için indir</a>
+    </div>
+
+    <small>Yönlendirme olmazsa aşağıdaki butonlardan seçim yapabilirsiniz.</small>
+  </div>
+
+  <script>
+    const PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=com.spoctalgames.linkyspace";
+
+    // Burayı App Store linkin çıkınca gerçek linkle değiştir.
+    const APP_STORE_URL = "https://apps.apple.com/app/linky-space/idXXXXXXXXXX";
+
+    document.getElementById("androidBtn").href = PLAY_STORE_URL;
+    document.getElementById("iosBtn").href = APP_STORE_URL;
+
+    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+    const isAndroid = /android/i.test(userAgent);
+
+    const isIOS =
+      /iPad|iPhone|iPod/.test(userAgent) ||
+      (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+
+    setTimeout(function () {
+      if (isAndroid) {
+        window.location.href = PLAY_STORE_URL;
+      } else if (isIOS) {
+        window.location.href = APP_STORE_URL;
+      } else {
+        document.getElementById("message").textContent =
+          "Cihazınızı algılayamadık. Lütfen aşağıdan mağazanızı seçin.";
+      }
+    }, 800);
+  </script>
+</body>
+</html>
